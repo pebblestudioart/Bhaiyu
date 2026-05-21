@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>For Puru Bhaiya 💜</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5EEF8; --lav-light: #E8DAEF; --lav-mid: #C39BD3;
+    --purple-soft: #9B59B6; --purple-deep: #5B2C6F; --white: #FFFFFF;
+    --text-dark: #342240; --green: #82E0AA; --gold: #F1C40F; --red-soft: #EC7063;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Quicksand', sans-serif; -webkit-tap-highlight-color: transparent;}
+  body { background: var(--bg); color: var(--text-dark); overflow-x: hidden; text-align: center; }
+
+  .floating-icon { position: fixed; bottom: -10vh; opacity: 0.3; animation: floatUp linear infinite; z-index: -1; pointer-events: none;}
+  @keyframes floatUp { 0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; } 20% { opacity: 0.5; } 100% { transform: translateY(-120vh) rotate(360deg) scale(1.5); opacity: 0; } }
+
+  .click-sparkle { position: absolute; font-size: 1.5rem; pointer-events: none; animation: popFade 0.8s ease-out forwards; z-index: 9999; transform: translate(-50%, -50%);}
+  @keyframes popFade { 0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; } 100% { transform: translate(-50%, -150%) scale(1.5); opacity: 0; } }
+
+  .container { max-width: 600px; margin: 0 auto; padding: 25px 20px; }
+
+  h1.title { font-family: 'Pacifico', cursive; font-size: 2.5rem; color: var(--purple-deep); margin: 20px 0 5px; line-height: 1.2; height: 60px; display: flex; justify-content: center; align-items: center; gap: 10px;}
+  p.subtitle { font-size: 1.1rem; color: var(--purple-soft); font-weight: 700; margin-bottom: 40px; margin-top: 10px;}
+  
+  .typing-cursor { border-right: 3px solid var(--purple-deep); animation: blink 0.7s infinite; padding-right: 5px; }
+  @keyframes blink { 0%, 100% { border-color: transparent; } 50% { border-color: var(--purple-deep); } }
+
+  .activity-card {
+    background: var(--white); border-radius: 25px; padding: 25px 20px;
+    box-shadow: 0 10px 25px rgba(155, 89, 182, 0.15); margin-bottom: 30px;
+    border: 3px dashed var(--lav-light); position: relative;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .activity-card:hover { transform: scale(1.01); border-color: var(--lav-mid); }
+  .activity-card h2 { font-family: 'Pacifico', cursive; font-size: 1.6rem; color: var(--purple-soft); margin-bottom: 10px; }
+  .activity-card p { font-size: 1.05rem; line-height: 1.5; margin-bottom: 15px; font-weight: 500;}
+
+  .btn {
+    background: var(--purple-soft); color: var(--white); border: none; padding: 12px 25px;
+    border-radius: 50px; font-size: 1.1rem; font-weight: 900; cursor: pointer;
+    box-shadow: 0 6px 15px rgba(155, 89, 182, 0.4); transition: all 0.2s; margin-top: 10px; width: 100%;
+  }
+  .btn:active { transform: scale(0.9) translateY(5px); box-shadow: 0 2px 5px rgba(155, 89, 182, 0.4); }
+
+  .runaway-container { min-height: 120px; position: relative; display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap;}
+  #btn-no { background: #e0e0e0; color: #666; position: relative; z-index: 10; transition: 0.1s ease-out; box-shadow: none; width: auto;}
+  #btn-yes { width: auto; z-index: 5;}
+  
+  input[type=range] { width: 100%; height: 15px; border-radius: 10px; outline: none; background: var(--lav-light); margin: 20px 0; accent-color: var(--purple-deep); }
+  
+  .quiz-options { display: flex; flex-direction: column; gap: 10px; }
+  .quiz-btn { background: var(--white); color: var(--purple-deep); border: 2px solid var(--lav-mid); border-radius: 15px; padding: 12px; font-weight: 900; transition: 0.3s;}
+  .quiz-btn:active { background: var(--lav-light); }
+
+  .catch-box, .game-area { height: 200px; background: var(--lav-light); border-radius: 20px; position: relative; overflow: hidden; margin-bottom: 10px; border: 2px solid var(--lav-mid);}
+  #moving-emoji { position: absolute; font-size: 3rem; top: 50px; left: 50px; transition: 0.2s linear; cursor: pointer; }
+  #game-target { position: absolute; font-size: 3rem; display: none; cursor: pointer; }
+  
+  .reveal-box { background: linear-gradient(135deg, var(--purple-soft), var(--purple-deep)); color: var(--white); padding: 30px 20px; border-radius: 20px; font-weight: 900; font-size: 1.2rem; cursor: pointer; transition: 0.5s; }
+  .reveal-box.revealed { background: var(--white); color: var(--purple-deep); border: 3px dashed var(--purple-soft); box-shadow: none;}
+
+  .grid-emojis { display: flex; justify-content: space-around; flex-wrap: wrap; margin: 15px 0; font-size: 2.5rem;}
+  .grid-emojis span { cursor: pointer; transition: 0.2s; }
+  .grid-emojis span:active { transform: scale(1.3); }
+
+  .contract { text-align: left; background: #fffdf5; padding: 15px; border-radius: 15px; font-size: 0.95rem; border: 2px solid var(--gold); line-height: 1.5;}
+  .checkbox-container { margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 900; color: var(--purple-deep);}
+  input[type=checkbox] { width: 25px; height: 25px; accent-color: var(--purple-soft);}
+
+  .pots-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 15px;}
+  .pot { background: #d4c09a; width: 75px; height: 75px; border-radius: 15px; border-bottom: 10px solid #ba9e6f; display: flex; align-items: center; justify-content: center; font-size: 2rem; cursor: pointer; flex-direction: column; transition: 0.4s;}
+  .pot.grown { background: transparent; border: none; transform: scale(1.1); }
+  .pot-name { font-family: 'Pacifico', cursive; font-size: 0.9rem; color: var(--purple-deep); opacity: 0; transition: 0.3s;}
+  .pot.grown .pot-name { opacity: 1; }
+
+  .cake-items { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 15px 0; background: var(--lav-light); padding: 10px; border-radius: 15px;}
+  .c-item { font-size: 1.8rem; cursor: pointer; transition: 0.2s;}
+  .c-item:active { transform: scale(1.2); }
+  .cake-display { min-height: 120px; background: var(--white); border: 2px dashed var(--purple-soft); border-radius: 15px; display: flex; flex-direction: column-reverse; align-items: center; justify-content: flex-start; padding: 10px; overflow: hidden;}
+  .cake-layer { font-size: 3rem; animation: dropIn 0.4s forwards; margin-top: -15px;}
+  @keyframes dropIn { 0% {transform: translateY(-50px); opacity: 0;} 100% {transform: translateY(0); opacity: 1;} }
+
+  #annoy-bar, #boss-bar { height: 20px; background: #ddd; border-radius: 10px; overflow: hidden; margin-top: 15px; border: 1px solid #ccc;}
+  #annoy-fill { height: 100%; width: 0%; background: var(--purple-soft); transition: 0.1s;}
+  #boss-fill { height: 100%; width: 100%; background: var(--red-soft); transition: 0.2s;}
+
+  .slot-machine { display: flex; justify-content: center; gap: 10px; font-size: 3rem; margin: 20px 0; background: var(--white); padding: 15px; border-radius: 15px; border: 3px solid var(--gold);}
+  .chat-box { background: #e8f5e9; border-radius: 15px; padding: 15px; text-align: left; min-height: 80px; margin-bottom: 10px; font-weight: bold; border: 1px solid #c8e6c9;}
+
+  #scanner { width: 100px; height: 100px; background: var(--lav-mid); border-radius: 50%; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 3rem; cursor: pointer; box-shadow: 0 0 20px rgba(155, 89, 182, 0.5); user-select: none; -webkit-user-select: none;}
+  .scanning { animation: pulseScan 0.5s infinite; background: var(--purple-soft) !important; }
+  @keyframes pulseScan { 0% { transform: scale(1); box-shadow: 0 0 20px var(--purple-soft); } 50% { transform: scale(1.1); box-shadow: 0 0 40px var(--purple-soft); } 100% { transform: scale(1); box-shadow: 0 0 20px var(--purple-soft); } }
+
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1 class="title">Hey <span id="typing-name" class="typing-cursor">Puru Bhaiya</span>! 👋</h1>
+  <p class="subtitle">Welcome to the Official Sibling Portal, curated by your Gudiya/Chidiya! 🐥💜</p>
+
+  <div class="activity-card">
+    <h2>1. The Facebook Origin</h2>
+    <p>Are you secretly super happy that we met on Facebook and became siblings?</p>
+    <div class="runaway-container" id="runaway-container">
+      <button class="btn" id="btn-yes" onclick="alert('I knew it! Best Facebook connection ever! 💙👍')">YES DUH! 😍</button>
+      <button class="btn" id="btn-no" onmouseover="runAway()" ontouchstart="runAway()">No</button>
+    </div>
+  </div>
+
+  <div class="activity-card">
+    <h2>2. The Extortion Meter 💸</h2>
+    <p>Kitne percent chance hai ki aaj tu mujhe 100rs bhejega?</p>
+    <input type="range" id="money-slider" min="0" max="100" value="10" oninput="checkSlider()">
+    <p id="slider-msg" style="font-weight:900; color: var(--purple-deep); font-size:1.2rem;">10%? Kanjus Bhaiya. 😒</p>
+  </div>
+
+  <div class="activity-card">
+    <h2>3. The Ultimate Quiz 🧠</h2>
+    <p>Humari har doosri conversation kis bare mein hoti hai?</p>
+    <div class="quiz-options">
+      <button class="quiz-btn" onclick="alert('Wrong! Par theek hai hum ro padte hain kabhi kabhi. 😂')">A) Deep emotional talks</button>
+      <button class="quiz-btn" onclick="alert('EKDUM CORRECT! Scanner bhej rahi hu. 📱💸')">B) 100rs bhejna bhaiyu</button>
+      <button class="quiz-btn" onclick="alert('Haha yeh bhi true hai, sbse hmara jhagda universal hai! 🥊')">C)  Kisi ki buraai</button>
+    </div>
+  </div>
+
+  <div class="activity-card">
+    <h2>4. Catch The UPI 🤑</h2>
+    <p>Catch the flying cash! Miss kiya toh 100rs extra lagenge.</p>
+    <div class="catch-box">
+      <div id="moving-emoji" onclick="alert('Caught it! Lekin real mein kab bhejega? 👀')">💸</div>
+    </div>
+  </div>
+
+  <div class="activity-card">
+    <h2>5. Gudiya's Coupon Box 🎟️</h2>
+    <p>Tap to see today's special online sibling offer!</p>
+    <div class="reveal-box" id="reveal-box" onclick="revealPrize()">
+      🎁 TAP TO OPEN 🎁
+    </div>
+  </div>
+
+  <div class="activity-card">
+    <h2>6. Roast Generator 🔥</h2>
+    <p>Sach sach bta du aaj kya lagta hai tu mujhe?</p>
+    <button class="btn" onclick="generateRoast()">Spit Facts</button>
+    <p id="roast-text" style="font-size: 1.1rem; font-weight: 700; margin-top: 15px; color: var(--purple-deep);">Waiting...</p>
+  </div>
+
+  <div class="activity-card">
+    <h2>7. The Bhaiya Boss Fight 🥊</h2>
+    <p>Tap fast to reduce his ignorance!</p>
+    <div style="font-size: 4rem; margin-bottom:10px;">🤺</div>
+    <div id="boss-bar"><div id="boss-fill"></div></div>
+    <button class="btn" onclick="hitBoss()" style="background:var(--red-soft); margin-top:10px;">Attack Devanshu Bhaiya!</button>
+  </div>
+
+  <div class="activity-card">
+    <h2>8. Emoji Memory Lane 💭</h2>
+    <p>Humari chats ka summary inn emojis mein. Tap any!</p>
+    <div class="grid-emojis">
+      <span onclick="alert('The classic: Tum reply nahi karoge toh mai spam karungi! 📲')">💬</span>
+      <span onclick="alert('Gudiya requesting funds from Bhaiya ATM. 🏦')">💰</span>
+      <span onclick="alert('Humari aadhi ladaiyan online hi solve hoti hain. 🤝')">🫂</span>
+      <span onclick="alert('Tere gande jokes pe meri fake hasee. 🤡')">😂</span>
+    </div>
+  </div>
+
+  <div class="activity-card">
+    <h2>9. Magic 8 Ball 🔮</h2>
+    <p>Kya Puru Bhaiya kabhi sudhrenge?</p>
+    <div style="font-size: 4rem; margin-bottom:10px;">🎱</div>
+    <button class="btn" onclick="alert('The Magic 8 Ball says: KOI CHANCE NAHI. Pagal tha, pagal hai. 🤡💜')">Ask the Universe</button>
+  </div>
+
+  <div class="activity-card">
+    <h2>10. The Official Contract 📜</h2>
+    <div class="contract">
+      I, <b>Puru Bhaiya</b>, solemnly swear that:<br><br>
+      📝 1. My online Chidiya is my favorite.<br>
+      📝 2. I will always team up with her against anyone.<br>
+      📝 3. I will unconditionally agree to the "100rs bhejna" clause.<br>
+      📝 4. Distance and screens won't change that I am her best Bhaiyu.
+    </div>
+    <div class="checkbox-container">
+      <input type="checkbox" id="contract-check" onchange="document.getElementById('sign-btn').style.display = this.checked ? 'block' : 'none'">
+      <label for="contract-check">I accept my fate.</label>
+    </div>
+    <button class="btn" id="sign-btn" style="display:none;" onclick="alert('Contract Signed & IP Logged. Tu gya beta ab! 📸😎')">SIGN CONTRACT</button>
+  </div>
+
+  <div class="activity-card">
+    <h2>11. Chat Bubble Catcher 💬</h2>
+    <p>10 seconds! Catch my messages before I delete them!</p>
+    <p style="font-weight:bold; color:var(--purple-deep); font-size:1.2rem;" id="score-board">Messages read: 0</p>
+    <button class="btn" id="start-game-btn" onclick="startGame()">Start Game</button>
+    <div class="game-area">
+      <div id="game-target" onmousedown="catchGameItem()" ontouchstart="catchGameItem()">💬</div>
+    </div>
+  </div>
+
+  <div class="activity-card">
+    <h2>12. Timeless Birthday Cake 🎂</h2>
+    <p>Since your birthday is approaching, let's build a virtual cake together!</p>
+    <div class="cake-items">
+      <span class="c-item" onclick="addCakeLayer('🥞')">🥞</span>
+      <span class="c-item" onclick="addCakeLayer('🧁')">🧁</span>
+      <span class="c-item" onclick="addCakeLayer('🍫')">🍫</span>
+      <span class="c-item" onclick="addCakeLayer('🕯️')">🕯️</span>
+    </div>
+    <div class="cake-display" id="cake-display"></div>
+    <button class="btn" onclick="alert('Happy (almost) Birthday Duda! You\'re getting old, buddhe! 🎉💜')">Sing Happy Birthday 🎶</button>
+  </div>
+
+  <div class="activity-card">
+    <h2>13. Garden of Nicknames 🪴</h2>
+    <p>Tap to grow all the names I use to annoy you!</p>
+    <div class="pots-container">
+      <div class="pot" onclick="growNick(this, 'Hindu')">🌱</div>
+      <div class="pot" onclick="growNick(this, 'Bhaiyu')">🌱</div>
+      <div class="pot" onclick="growNick(this, 'Duda')">🌱</div>
+      <div class="pot" onclick="growNick(this, 'Pillu')">🌱</div>
+      <div class="pot" onclick="growNick(this, 'Churu')">🌱</div>
+      <div class="pot" onclick="growNick(this, 'Pagal')">🌱</div>
+      <div class="pot" onclick="growNick(this, 'Bhaiyaaaa')">🌱</div>
+    </div>
+  </div>
+
+  <div class="activity-card">
+    <h2>14. The Annoy-o-Meter 🔊</h2>
+    <p>Spam the button to scream at Bhaiya virtually!</p>
+    <button class="btn" onclick="annoyBhaiya()" style="background:var(--gold); color:var(--text-dark);">Bhaiyaaaaa! 🗣️</button>
+    <div id="annoy-bar"><div id="annoy-fill"></div></div>
+    <p id="annoy-msg" style="margin-top:10px; font-weight:bold;"></p>
+  </div>
+
+  <div class="activity-card">
+    <h2>15. The "100rs" Slot Machine 🎰</h2>
+    <p>Match 3 money bags. If you win, YOU owe ME 100rs. If you lose, YOU STILL owe me 100rs.</p>
+    <div class="slot-machine">
+      <span id="slot1">❓</span><span id="slot2">❓</span><span id="slot3">❓</span>
+    </div>
+    <button class="btn" onclick="spinSlots()">Spin the Reels</button>
+  </div>
+
+  <div class="activity-card">
+    <h2>16. Late Night Chat Simulator 📱</h2>
+    <p>Send a message at 2 AM, let's see what Bhaiya bots reply.</p>
+    <div class="chat-box" id="sim-chat">Type something below...</div>
+    <input type="text" id="sim-input" placeholder="e.g., neend nahi aa rahi..." style="padding:10px; width:70%; border-radius:10px; border:1px solid #ccc;">
+    <button class="btn" style="width:25%; padding:10px;" onclick="simReply()">Send</button>
+  </div>
+
+  <div class="activity-card">
+    <h2>17. Mood Scanner 👆</h2>
+    <p>Hold the scanner to see if you are acting like a "Pagal" today.</p>
+    <div id="scanner" onmousedown="startScan()" onmouseup="endScan()" ontouchstart="startScan()" ontouchend="endScan()">🖐️</div>
+    <p id="scan-result" style="margin-top:15px; font-weight:bold;"></p>
+  </div>
+
+  <div class="activity-card">
+    <h2>18. Vibe Check Emojis 🎭</h2>
+    <p>How are we feeling right now?</p>
+    <div class="grid-emojis">
+      <span onclick="alert('Good. Chup chap paise bhej. 🤑')">😎</span>
+      <span onclick="alert('Rona band kar, mai hu na teri best Gudiya! 🐣')">🥺</span>
+      <span onclick="alert('Gussa? Devanshu bhaiya se nikal apna gussa! 😡')">🤬</span>
+      <span onclick="alert('Sleep tight Duda! 💤')">🥱</span>
+    </div>
+  </div>
+
+  <div class="activity-card">
+    <h2>19. Quick Tap Spammer ⚡</h2>
+    <p>Send me "Okay Chidiya" 10 times in 5 seconds to prove you care!</p>
+    <button class="btn" id="spam-btn" onclick="spamClick()" style="background:var(--purple-deep);">Tap Me Fast!</button>
+    <p id="spam-score" style="margin-top:10px; font-weight:bold;">Taps: 0</p>
+  </div>
+
+  <div class="activity-card" style="background:#fdf2f8; border: 2px solid var(--purple-deep);">
+    <h2>20. The Secret Vault 🔒</h2>
+    <p>Password is the golden number we always joke about. (Starts with 1, ends with 00)</p>
+    <input type="password" id="vault-pass" placeholder="Enter Amount..." style="padding:12px; width:70%; border-radius:10px; border:1px solid #ccc;">
+    <button class="btn" style="width:70%; margin-top:10px;" onclick="checkVault()">Unlock</button>
+    <div id="vault-content" style="display:none; margin-top:20px; font-weight:700; color:var(--purple-deep); line-height: 1.6;">
+        "Dear Churu Bhaiya / Hindu / Bhaiyu... We might have met on Facebook, and we might survive entirely on texts and online bakwas, but you are genuinely the best brother to your Chidiya. Whether we are fighting with Devanshu Bhaiya, or I am ranting about my life or I am extorting 100rs from you, every moment is precious. Happy Birthday in advance to my timeless, thoda sa pagal, but sabse pyara bhai. I love you endlessly! 💜🐣 - Your Bachha" 💌
+    </div>
+  </div>
+
+  <p style="font-family: 'Pacifico', cursive; font-size: 2rem; color: var(--purple-deep); margin: 50px 0 10px;">You're the absolute best!</p>
+  <p style="font-family: 'Pacifico', cursive; font-size: 1.8rem; color: var(--purple-soft); margin-bottom: 50px; animation: pulse 1.5s infinite;">— Your Chidiya 🐣💜</p>
+</div>
+
+<script>
+  // 1. Typing Setup
+  const nicknames = ["Puru Bhaiya", "Hindu", "Bhaiyu", "Duda", "Pillu", "Churu", "Pagal", "Bhaiyaaaa"];
+  let nameIdx = 0, charIdx = 0, isDel = false;
+  const typEl = document.getElementById('typing-name');
+
+  function typeEffect() {
+    const cur = nicknames[nameIdx];
+    if (isDel) { typEl.innerText = cur.substring(0, charIdx - 1); charIdx--; } 
+    else { typEl.innerText = cur.substring(0, charIdx + 1); charIdx++; }
+    
+    let spd = isDel ? 100 : 200;
+    if (!isDel && charIdx === cur.length) { spd = 1500; isDel = true; } 
+    else if (isDel && charIdx === 0) { isDel = false; nameIdx = (nameIdx + 1) % nicknames.length; spd = 500; }
+    setTimeout(typeEffect, spd);
+  }
+
+  // Visuals & BG
+  document.addEventListener('click', e => {
+    if(e.target.tagName === 'BUTTON') return; // less clutter on buttons
+    let s = document.createElement('div'); s.className = 'click-sparkle';
+    s.innerText = ['✨','💜','💸','🐣'][Math.floor(Math.random()*4)];
+    s.style.left = e.pageX + 'px'; s.style.top = e.pageY + 'px';
+    document.body.appendChild(s); setTimeout(() => s.remove(), 800);
+  });
+
+  window.onload = () => {
+    for(let i=0; i<15; i++) {
+      let h = document.createElement('div'); h.className = 'floating-icon'; 
+      h.innerText = ['💜','🐣','💸','✨','💬'][Math.floor(Math.random()*5)];
+      h.style.left = Math.random() * 100 + 'vw';
+      h.style.animationDuration = (Math.random() * 5 + 6) + 's';
+      h.style.animationDelay = Math.random() * 5 + 's';
+      h.style.fontSize = (Math.random() * 15 + 15) + 'px';
+      document.body.appendChild(h);
+    }
+    typeEffect();
+    setInterval(() => {
+      let m = document.getElementById('moving-emoji');
+      m.style.top = Math.random() * 130 + 'px'; m.style.left = Math.random() * 80 + '%';
+    }, 500);
+  };
+
+  // Game 1: Runaway
+  function runAway() {
+    const b = document.getElementById('btn-no'); const c = document.getElementById('runaway-container');
+    b.style.position = 'absolute'; b.style.top = Math.random() * (c.clientHeight - 40) + 'px'; b.style.left = Math.random() * (c.clientWidth - 80) + 'px';
+  }
+
+  // Game 2: Slider
+  function checkSlider() {
+    let v = document.getElementById('money-slider').value; let m = document.getElementById('slider-msg');
+    if(v < 50) m.innerText = v + "%? Kanjus. 😒";
+    else if(v < 99) m.innerText = v + "%? Getting closer! 🤑";
+    else { m.innerText = "100%! Good boy. UPI scanning. 💸💜"; document.getElementById('money-slider').value = 100; }
+  }
+
+  // Game 5: Coupon
+  function revealPrize() {
+    let b = document.getElementById('reveal-box');
+    const p = ["🎫 COUPON: I won't annoy you for 2 hrs", "🎫 COUPON: I will take your side against Devanshu", "🎫 COUPON: Free appreciation text", "🎫 COUPON: Forgiveness for late reply"];
+    b.innerText = p[Math.floor(Math.random() * p.length)]; b.classList.add('revealed');
+  }
+
+  // Game 6: Roast
+  function generateRoast() {
+    const r = ["You text like an uncle. 👴", "Devanshu bhaiya is slightly less annoying than you. (Kidding) 😜", "You're my fav ATM machine! 🏦", "Bhaiyu tu pagal zarur hai, par mera fav hai. 💜"];
+    document.getElementById('roast-text').innerText = r[Math.floor(Math.random() * r.length)];
+  }
+
+  // Game 7: Boss Fight
+  let bossHp = 100;
+  function hitBoss() {
+    if(bossHp <= 0) return;
+    bossHp -= 15;
+    if(bossHp < 0) bossHp = 0;
+    document.getElementById('boss-fill').style.width = bossHp + '%';
+    if(bossHp === 0) { alert("YAY! Hum dono ne milke Devanshu Bhaiya ko hara diya! 🥊🎊"); setTimeout(()=>{bossHp=100; document.getElementById('boss-fill').style.width='100%';}, 3000); }
+  }
+
+  // Game 11: Catch Bubbles
+  let score=0, gAct=false, gInt;
+  function startGame() {
+    if(gAct) return; score = 0; gAct = true;
+    document.getElementById('score-board').innerText = 'Messages read: 0';
+    document.getElementById('start-game-btn').style.display = 'none';
+    let t = document.getElementById('game-target'); t.style.display = 'block';
+
+    gInt = setInterval(() => {
+      t.style.top = Math.random() * 140 + 'px'; t.style.left = Math.random() * 80 + '%';
+    }, 600); 
+
+    setTimeout(() => {
+      clearInterval(gInt); gAct = false; t.style.display = 'none';
+      document.getElementById('start-game-btn').style.display = 'block'; document.getElementById('start-game-btn').innerText = 'Play Again';
+      alert("Time's up! You read " + score + " messages before I unsent them! 💬");
+    }, 10000); 
+  }
+  function catchGameItem() {
+    if(gAct) {
+      score++; document.getElementById('score-board').innerText = 'Messages read: ' + score;
+      let t = document.getElementById('game-target');
+      t.style.top = Math.random() * 140 + 'px'; t.style.left = Math.random() * 80 + '%';
+    }
+  }
+
+  // Game 12: Cake
+  function addCakeLayer(emoji) {
+    let disp = document.getElementById('cake-display');
+    if(disp.children.length < 4) { let l = document.createElement('div'); l.className = 'cake-layer'; l.innerText = emoji; disp.appendChild(l); } 
+    else { alert("Cake is full! Time to cut it! 🎂🔪"); }
+  }
+
+  // Game 13: Nicknames
+  function growNick(el, name) {
+    el.innerHTML = `<div style="font-size:1.8rem;">💜</div><div class="pot-name">${name}</div>`;
+    el.classList.add('grown'); el.style.pointerEvents = 'none'; 
+  }
+
+  // Game 14: Annoy
+  let annoyLevel = 0;
+  function annoyBhaiya() {
+    annoyLevel += 10; if(annoyLevel > 100) annoyLevel = 100;
+    document.getElementById('annoy-fill').style.width = annoyLevel + '%';
+    let msg = document.getElementById('annoy-msg');
+    if(annoyLevel < 30) msg.innerText = "Kya hai bachha?!";
+    else if(annoyLevel < 70) msg.innerText = "Ruk ja chidiya, spam mat kar!";
+    else if(annoyLevel < 100) msg.innerText = "DEVANSHU KO BATAUNGA TERI SHIKAYAT!";
+    else { msg.innerText = "Okay okay le 100rs le aur chup ho ja! 💸😭"; setTimeout(()=>{annoyLevel=0; document.getElementById('annoy-fill').style.width='0%'; msg.innerText="";}, 3000); }
+  }
+
+  // Game 15: Slots
+  function spinSlots() {
+    const e = ['💸', '🤡', '🥊'];
+    document.getElementById('slot1').innerText = e[Math.floor(Math.random()*e.length)];
+    document.getElementById('slot2').innerText = e[Math.floor(Math.random()*e.length)];
+    document.getElementById('slot3').innerText = e[Math.floor(Math.random()*e.length)];
+    setTimeout(() => { alert("Result: You owe me 100rs either way. Rules are rules. 😌"); }, 500);
+  }
+
+  // Game 16: Chat Sim
+  function simReply() {
+    const val = document.getElementById('sim-input').value;
+    if(!val) return;
+    document.getElementById('sim-chat').innerHTML = "<b>Chidiya:</b> " + val + "<br><br><i>Bhaiya typing...</i>";
+    setTimeout(() => {
+      const reps = ["So ja pagal bachha. 😴", "Acha sun, Devanshu ko roast karein? 😂", "100rs bhej tab baat karunga. 🤑"];
+      document.getElementById('sim-chat').innerHTML += "<br><b>Puru Bhaiya:</b> " + reps[Math.floor(Math.random()*reps.length)];
+      document.getElementById('sim-input').value = "";
+    }, 1500);
+  }
+
+  // Game 17: Scanner
+  let scanTimer;
+  function startScan() {
+    document.getElementById('scanner').classList.add('scanning');
+    document.getElementById('scan-result').innerText = "Scanning Bhaiya's brain waves...";
+    scanTimer = setTimeout(() => {
+      document.getElementById('scanner').classList.remove('scanning');
+      document.getElementById('scan-result').innerText = "Result: 100% Pagal detected! 🤡";
+    }, 2000);
+  }
+  function endScan() {
+    clearTimeout(scanTimer);
+    document.getElementById('scanner').classList.remove('scanning');
+    if(document.getElementById('scan-result').innerText === "Scanning Bhaiya's brain waves...") {
+      document.getElementById('scan-result').innerText = "Hold it longer, churu!";
+    }
+  }
+
+  // Game 19: Spammer
+  let taps = 0, spamAct = false, spamT;
+  function spamClick() {
+    if(!spamAct) {
+      spamAct = true; taps = 0;
+      spamT = setTimeout(() => {
+        spamAct = false;
+        if(taps >= 10) alert("Passed! You really love your Chidiya! 🐣💜");
+        else alert("Only " + taps + " taps? You're too slow, uncle! 👴");
+        taps = 0; document.getElementById('spam-score').innerText = 'Taps: 0';
+      }, 5000);
+    }
+    taps++;
+    document.getElementById('spam-score').innerText = 'Taps: ' + taps;
+  }
+
+  // Game 20: Vault
+  function checkVault() {
+    if(document.getElementById('vault-pass').value === "20032005") { document.getElementById('vault-content').style.display = 'block'; } 
+    else { alert("Wrong! Password is the golden amount you owe me! (Hint: Meri DOB) 😤"); }
+  }
+</script>
+</body>
+</html>
